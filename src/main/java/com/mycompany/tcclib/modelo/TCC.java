@@ -16,6 +16,7 @@ import org.bson.Document;
  */
 public class TCC {
 
+    private int id;
     private String titulo;
     private String autor;
     private String orientador;
@@ -29,7 +30,8 @@ public class TCC {
     public TCC() {
     }
 
-    public TCC(String titulo, String autor, String orientador, ArrayList<String> palavrasChave, String resumo, String area, int ano, String url, String texto) {
+    public TCC(int id, String titulo, String autor, String orientador, ArrayList<String> palavrasChave, String resumo, String area, int ano, String url, String texto) {
+        this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.orientador = orientador;
@@ -41,6 +43,14 @@ public class TCC {
         this.texto = texto;
     }
 
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -116,15 +126,16 @@ public class TCC {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.titulo);
-        hash = 59 * hash + Objects.hashCode(this.autor);
-        hash = 59 * hash + Objects.hashCode(this.orientador);
-        hash = 59 * hash + Objects.hashCode(this.palavrasChave);
-        hash = 59 * hash + Objects.hashCode(this.resumo);
-        hash = 59 * hash + Objects.hashCode(this.area);
-        hash = 59 * hash + this.ano;
-        hash = 59 * hash + Objects.hashCode(this.url);
-        hash = 59 * hash + Objects.hashCode(this.texto);
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.titulo);
+        hash = 97 * hash + Objects.hashCode(this.autor);
+        hash = 97 * hash + Objects.hashCode(this.orientador);
+        hash = 97 * hash + Objects.hashCode(this.palavrasChave);
+        hash = 97 * hash + Objects.hashCode(this.resumo);
+        hash = 97 * hash + Objects.hashCode(this.area);
+        hash = 97 * hash + this.ano;
+        hash = 97 * hash + Objects.hashCode(this.url);
+        hash = 97 * hash + Objects.hashCode(this.texto);
         return hash;
     }
 
@@ -140,6 +151,9 @@ public class TCC {
             return false;
         }
         final TCC other = (TCC) obj;
+        if (this.id != other.id) {
+            return false;
+        }
         if (this.ano != other.ano) {
             return false;
         }
@@ -172,7 +186,7 @@ public class TCC {
 
     @Override
     public String toString() {
-        return "TCC{" + "titulo=" + titulo + ", autor=" + autor + ", orientador=" + orientador + ", palavrasChave=" + palavrasChave + ", resumo=" + resumo + ", area=" + area + ", ano=" + ano + ", url=" + url + ", texto=" + texto + '}';
+        return "TCC{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", orientador=" + orientador + ", palavrasChave=" + palavrasChave + ", resumo=" + resumo + ", area=" + area + ", ano=" + ano + ", url=" + url + ", texto=" + texto + '}';
     }
 
     public Document toDocument() {
