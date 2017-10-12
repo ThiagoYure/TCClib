@@ -19,7 +19,7 @@ public class LeitorPDF {
     private final Metadata metadata;
     private final FileInputStream inputStream;
     private final ParseContext parseContext;
-    
+
     public LeitorPDF(String path) throws FileNotFoundException{
         handler = new BodyContentHandler(-1);
         metadata = new Metadata();

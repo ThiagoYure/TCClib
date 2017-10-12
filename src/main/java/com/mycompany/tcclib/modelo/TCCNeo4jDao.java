@@ -74,4 +74,13 @@ public class TCCNeo4jDao {
         }
         return retorno;
     }
+    public void sessionClose() {
+        session.close();
+    }
+    public void createRelationship(TCC tcc) {
+        session.run("MATCH (t:Tcc{id:$id}), (a:Area{area:$area}), (o:Orientador{nome:$nome}) "
+                + "CREATE (t)-[r:PERTENCE]->(a), (t)-[r1:ORIENTADO_POR]->(o)",
+                Values.parameters("id", tcc.getId(), "area", tcc.getArea(),
+                        "nome", tcc.getOrientador()));
+    }
 }
