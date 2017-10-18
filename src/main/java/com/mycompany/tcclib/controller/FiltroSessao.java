@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThigoYure
  */
-@WebFilter(urlPatterns = {"/inicial.jsp"})
+@WebFilter(urlPatterns = {"/inicial.jsp","/pdf.jsp","/cadastroTCC.jsp","/configuracoes.jsp","/buscarTCC.jsp"})
 public class FiltroSessao implements Filter {
 
     @Override

@@ -97,6 +97,22 @@ public class FrontController extends HttpServlet {
                 Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if (controller.equals("CadastroTCC")) {
+            CadastroTCCController command = new CadastroTCCController();
+            try {
+                command.execute(request, response);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (controller.equals("BuscarTCC")) {
+            BuscarTCCController command = new BuscarTCCController();
+            try {
+                command.execute(request, response);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

@@ -22,11 +22,11 @@ public class BuscarTCCController implements Command{
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws SQLException, ClassNotFoundException, IOException, ServletException {
-        String resultPesquisa = req.getParameter("dadosPesquisa");
+        String resultPesquisa = req.getParameter("search");
         TCCMongoDao tccMongoDao = new TCCMongoDao();
         List<TCC> result = tccMongoDao.BuscaPorTexto(resultPesquisa);
         req.setAttribute("result", result);
-        res.sendRedirect("buscaTcc.jsp");
+        req.getRequestDispatcher("buscarTCC.jsp").forward(req, res);
         
     }
     

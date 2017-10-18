@@ -9,6 +9,7 @@ import com.mongodb.MongoTimeoutException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 import com.mycompany.tcclib.factory.ConFactory;
@@ -21,10 +22,11 @@ import org.bson.Document;
  * @author Ricarte
  */
 public class TCCMongoDao {
+
     private MongoDatabase banco;
     private MongoCollection<Document> colecao;
-    
-    public TCCMongoDao(){
+
+    public TCCMongoDao() {
         banco = ConFactory.getConnectionMongo().getDatabase("Tcc");
         colecao = banco.getCollection("Tccs");
     }
@@ -40,10 +42,23 @@ public class TCCMongoDao {
         }
 
     }
-    
-    public List<TCC> BuscaPorTexto(String query) {
+
+    public int generatorID() {
         try {
-            MongoCursor<Document> cursor = null;
+            int qnt = (int) colecao.count();
+
+            ConFactory.getConnectionMongo().close();
+
+            return qnt;
+        } catch (MongoTimeoutException j) {
+            ConFactory.getConnectionMongo().close();
+            return 0;
+        }
+    }
+
+    public List<TCC> BuscaPorTexto(String query) {
+        MongoCursor<Document> cursor = null;
+        try {
             cursor = colecao.find(new Document("$text", new Document("$search", query))).
                     projection(Projections.metaTextScore("score")).
                     sort(Sorts.metaTextScore("score")).iterator();
@@ -53,7 +68,7 @@ public class TCCMongoDao {
                 Document searchTCC = cursor.next();
                 tccs.add(new TCC().fromDocument(searchTCC));
             }
-
+            System.out.println(tccs);
             cursor.close();
             ConFactory.getConnectionMongo().close();
             return tccs;
@@ -63,4 +78,12 @@ public class TCCMongoDao {
         }
 
     }
+    public TCC read(int id){
+        try{
+            TCC retorno = new TCC().fromDocument(colecao.find(eq("id",id)).first());
+            return retorno;
+        }catch(MongoTimeoutException ex){
+            return null;
+        }
+}
 }

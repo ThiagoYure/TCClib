@@ -16,12 +16,12 @@
         <title>TCCLib - Cadastro</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body class="amber lighten-3">
+    <body class="blue-grey darken-3">
         <div class="row">
             <div class="center"><img class="responsive-img" style="width: 450px;height: 400px" src="images/Logo.png"/></div> 
         </div>
         <div class="row">
-            <div class="card light-blue accent-2 col s4 offset-s4">
+            <div class="card pink darken-4 col s4 offset-s4">
                 <div class="card-content white-text">
                     <h4 class="center-align" style="font-family: fantasy">Cadastro</h4>
                     <form action="FrontController?controller=Cadastro" method="POST" enctype="multipart/form-data">

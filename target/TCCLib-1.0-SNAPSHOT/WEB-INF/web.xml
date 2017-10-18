@@ -3,6 +3,9 @@
     <servlet>
         <servlet-name>FrontController</servlet-name>
         <servlet-class>com.mycompany.tcclib.controller.FrontController</servlet-class>
+        <multipart-config>
+            <max-file-size>52900000</max-file-size>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>

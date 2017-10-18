@@ -32,14 +32,14 @@
                 <div class="container">
                     <div class="card pink darken-4">
                         <div class="card-content white-text">
-                            <span class="card-title">Meus Trabalhos</span>
-                            <a>Clique aqui!</a>
+                            <span class="card-title">Cadastrar Trabalho</span>
+                            <a href="cadastroTCC.jsp">Clique aqui!</a>
                         </div>
                     </div>
                     <div class="card pink darken-4">
                         <div class="card-content white-text">
                             <span class="card-title">Buscar Trabalhos</span>
-                            <a>Clique aqui!</a>
+                            <a href="buscarTCC.jsp">Clique aqui!</a>
                         </div>
                     </div>
                 </div>

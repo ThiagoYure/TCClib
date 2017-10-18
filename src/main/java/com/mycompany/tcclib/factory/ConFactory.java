@@ -25,18 +25,18 @@ public class ConFactory {
         Class.forName("org.postgresql.Driver");
         String url = "jdbc:postgresql://localhost:5432/TCCLib";
         String usuario = "postgres";
-        String senha = "4170234";
+        String senha = "kabuto123456";
 
         return DriverManager.getConnection(url, usuario, senha);
     }
 
     public static MongoClient getConnectionMongo() {
-        return new MongoClient("localhost", 27017);
+        return new MongoClient("127.0.0.1", 27017);
     }
 
     public static Session getConnectionNeo4j() {
         Driver driver = GraphDatabase.driver("bolt://localhost:7687",
-                AuthTokens.basic("neo4j", "neo4j123"));
+                AuthTokens.basic("neo4j", "siegfried"));
         return driver.session();
     }
 

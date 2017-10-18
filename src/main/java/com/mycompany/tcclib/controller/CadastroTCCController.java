@@ -33,16 +33,17 @@ public class CadastroTCCController implements Command{
         String titulo = req.getParameter("titulo");
         String autor = req.getParameter("autor");
         String orientador = req.getParameter("orientador");
-        String palavraChave = req.getParameter("palavraChave");
+        String palavraChave = req.getParameter("palavrasChave");
         String resumo = req.getParameter("resumo");
         String area = req.getParameter("area");
         String ano = req.getParameter("ano");
-        String url = req.getParameter("url");
         String texto = "";
-        
-        TCC tcc = new TCC(titulo, autor, orientador, palavraChave, resumo, area, ano, url, texto);
-        
         TCCMongoDao tccMongoDao = new TCCMongoDao();
+        int id = tccMongoDao.generatorID()+1;
+        
+        TCC tcc = new TCC(id, titulo, autor, orientador, palavraChave, resumo, area, ano, "", texto);
+        
+        
         TCCNeo4jDao tccNeo4jDao = new TCCNeo4jDao();
         TCCRedisDao tccRedisDao = new TCCRedisDao();
         
@@ -51,7 +52,7 @@ public class CadastroTCCController implements Command{
         if (!pastaTcc.exists()) {
             pastaTcc.mkdirs();
         }
-        Part path = req.getPart("TCCs");
+        Part path = req.getPart("pdf");
         String cam = caminhoTcc + File.separator + path.getSubmittedFileName();
         path.write(cam);
         
@@ -59,11 +60,12 @@ public class CadastroTCCController implements Command{
         
         try {
             texto = leitorPdf.getText();
+            tcc.setTexto(texto);
         } catch (SAXException | TikaException ex) {
             Logger.getLogger(CadastroTCCController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        tcc.setUrl(cam);
+        tcc.setUrl("TCCs/"+path.getSubmittedFileName());
         
         tccRedisDao.insert(tcc);
         if(tccMongoDao.insert(tcc.toDocument())){
@@ -73,10 +75,10 @@ public class CadastroTCCController implements Command{
             
             tccRedisDao.delete(tcc);
             req.removeAttribute("dadosTcc");
-            res.sendRedirect("incial.jsp");
+            res.sendRedirect("inicial.jsp");
         } else {
             req.setAttribute("dadosTcc", tccRedisDao.read());
-            res.sendRedirect("cadastroTcc.jsp");
+            res.sendRedirect("cadastroTCC.jsp");
         }
     }
     

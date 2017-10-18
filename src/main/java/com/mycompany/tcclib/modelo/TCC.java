@@ -17,7 +17,6 @@ import org.bson.Document;
 public class TCC {
 
     private int id;
-    private static int cont;
     private String titulo;
     private String autor;
     private String orientador;
@@ -26,13 +25,13 @@ public class TCC {
     private String area;
     private String ano;
     private String url;
-    private String texto;
+    private String conteudo;
 
     public TCC() {
     }
 
-    public TCC(String titulo, String autor, String orientador, String palavrasChave, String resumo, String area, String ano, String url, String texto) {
-        id = ++cont;
+    public TCC(int id, String titulo, String autor, String orientador, String palavrasChave, String resumo, String area, String ano, String url, String texto) {
+        this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.orientador = orientador;
@@ -41,7 +40,7 @@ public class TCC {
         this.area = area;
         this.ano = ano;
         this.url = url;
-        this.texto = texto;
+        this.conteudo = texto;
     }
 
     public int getId(){
@@ -117,26 +116,26 @@ public class TCC {
     }
 
     public String getTexto() {
-        return texto;
+        return conteudo;
     }
 
     public void setTexto(String texto) {
-        this.texto = texto;
+        this.conteudo = texto;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.titulo);
-        hash = 53 * hash + Objects.hashCode(this.autor);
-        hash = 53 * hash + Objects.hashCode(this.orientador);
-        hash = 53 * hash + Objects.hashCode(this.palavrasChave);
-        hash = 53 * hash + Objects.hashCode(this.resumo);
-        hash = 53 * hash + Objects.hashCode(this.area);
-        hash = 53 * hash + Objects.hashCode(this.ano);
-        hash = 53 * hash + Objects.hashCode(this.url);
-        hash = 53 * hash + Objects.hashCode(this.texto);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.titulo);
+        hash = 97 * hash + Objects.hashCode(this.autor);
+        hash = 97 * hash + Objects.hashCode(this.orientador);
+        hash = 97 * hash + Objects.hashCode(this.palavrasChave);
+        hash = 97 * hash + Objects.hashCode(this.resumo);
+        hash = 97 * hash + Objects.hashCode(this.area);
+        hash = 97 * hash + Objects.hashCode(this.ano);
+        hash = 97 * hash + Objects.hashCode(this.url);
+        hash = 97 * hash + Objects.hashCode(this.conteudo);
         return hash;
     }
 
@@ -152,7 +151,7 @@ public class TCC {
             return false;
         }
         final TCC other = (TCC) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.titulo, other.titulo)) {
@@ -179,26 +178,31 @@ public class TCC {
         if (!Objects.equals(this.url, other.url)) {
             return false;
         }
-        if (!Objects.equals(this.texto, other.texto)) {
+        if (!Objects.equals(this.conteudo, other.conteudo)) {
             return false;
         }
         return true;
     }
 
+   
+
     @Override
     public String toString() {
-        return "TCC{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", orientador=" + orientador + ", palavrasChave=" + palavrasChave + ", resumo=" + resumo + ", area=" + area + ", ano=" + ano + ", url=" + url + ", texto=" + texto + '}';
+        return "TCC{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", orientador=" + orientador + ", palavrasChave=" + palavrasChave + ", resumo=" + resumo + ", area=" + area + ", ano=" + ano + ", url=" + url + ", conteudo=" + conteudo + '}';
     }
 
+    
+
     public Document toDocument() {
-        Document doc = new Document().append("titulo", titulo).append("autor", autor).append("orientador", orientador)
+        Document doc = new Document().append("id",id).append("titulo", titulo).append("autor", autor).append("orientador", orientador)
                 .append("palavrasChave", palavrasChave).append("resumo", resumo).append("ano", ano).append("area", area)
-                .append("url", url).append("conteudo", texto);
+                .append("url", url).append("conteudo", conteudo);
 
         return doc;
     }
 
     public TCC fromDocument(Document doc) {
+        id = doc.getInteger("id").intValue();
         titulo = doc.getString("titulo");
         autor = doc.getString("autor");
         orientador = doc.getString("orientador");
@@ -207,7 +211,7 @@ public class TCC {
         ano = doc.getString("ano");
         area = doc.getString("area");
         url = doc.getString("url");
-        texto = doc.getString("texto");
+        conteudo = doc.getString("conteudo");
         return this;
     }
 
